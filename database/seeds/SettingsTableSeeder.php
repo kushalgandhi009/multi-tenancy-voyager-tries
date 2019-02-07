@@ -129,6 +129,18 @@ class SettingsTableSeeder extends Seeder
                 'group'        => 'Admin',
             ])->save();
         }
+        
+        $setting = $this->findSetting('site.phone');
+        if (!$setting->exists) {
+            $setting->fill([
+                'display_name' => 'Site phone',
+                'value'        => '',
+                'details'      => '',
+                'type'         => 'text',
+                'order'        => 6,
+                'group'        => 'Site',
+            ])->save();
+        }
     }
 
     /**

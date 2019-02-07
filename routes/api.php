@@ -16,3 +16,12 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+       Route::group([
+            'as'     => 'settings.',
+            'prefix' => 'settings',
+            'middleware' => 'tenancy.enforce' 
+        ], function ()  {
+            Route::get('/', ['uses' => 'API\SettingsController@index',        'as' => 'index']);
+        });
