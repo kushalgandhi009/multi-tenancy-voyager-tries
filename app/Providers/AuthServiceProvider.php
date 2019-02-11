@@ -14,8 +14,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
-        // 'TCG\Voyager\Models\Setting' => 'TCG\Voyager\Policies\SettingPolicy',
-        // 'TCG\Voyager\Models\MenuItem' => 'TCG\Voyager\Policies\MenuItemPolicy',
     ];
 
     /**
@@ -26,9 +24,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        
-        \Laravel\Passport\Passport::routes(null, ['middleware' => 'tenancy.enforce']);
-        
+
         $this->commands([
             \Laravel\Passport\Console\InstallCommand::class,
             \Laravel\Passport\Console\ClientCommand::class,
