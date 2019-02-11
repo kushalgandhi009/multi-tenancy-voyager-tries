@@ -14,12 +14,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
-        'TCG\Voyager\Models\Setting' => 'TCG\Voyager\Policies\SettingPolicy',
-        'TCG\Voyager\Models\MenuItem' => 'TCG\Voyager\Policies\MenuItemPolicy',
-        'TCG\Voyager\Models\User' => 'TCG\Voyager\Policies\UserPolicy',
-        'TCG\Voyager\Models\Menu' => 'TCG\Voyager\Policies\BasePolicy',
-        'TCG\Voyager\Models\Role' => 'TCG\Voyager\Policies\BasePolicy',
-//        'TCG\Voyager\Models\Page' => 'TCG\Voyager\Policies\BasePolicy',
+        // 'TCG\Voyager\Models\Setting' => 'TCG\Voyager\Policies\SettingPolicy',
+        // 'TCG\Voyager\Models\MenuItem' => 'TCG\Voyager\Policies\MenuItemPolicy',
     ];
 
     /**
