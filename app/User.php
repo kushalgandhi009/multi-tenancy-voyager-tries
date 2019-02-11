@@ -5,10 +5,12 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
+use Hyn\Tenancy\Traits\UsesTenantConnection;
 
 class User extends \TCG\Voyager\Models\User
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable, UsesTenantConnection;
 
     /**
      * The attributes that are mass assignable.

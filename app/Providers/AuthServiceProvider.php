@@ -19,9 +19,7 @@ class AuthServiceProvider extends ServiceProvider
         'TCG\Voyager\Models\User' => 'TCG\Voyager\Policies\UserPolicy',
         'TCG\Voyager\Models\Menu' => 'TCG\Voyager\Policies\BasePolicy',
         'TCG\Voyager\Models\Role' => 'TCG\Voyager\Policies\BasePolicy',
-        'TCG\Voyager\Models\Category' => 'TCG\Voyager\Policies\BasePolicy',
-        'TCG\Voyager\Models\Post' => 'TCG\Voyager\Policies\BasePolicy',
-        'TCG\Voyager\Models\Page' => 'TCG\Voyager\Policies\BasePolicy',
+//        'TCG\Voyager\Models\Page' => 'TCG\Voyager\Policies\BasePolicy',
     ];
 
     /**
@@ -32,6 +30,17 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        
+        \Laravel\Passport\Passport::routes(null, ['middleware' => 'tenancy.enforce']);
+        
+        $this->commands([
+            \Laravel\Passport\Console\InstallCommand::class,
+            \Laravel\Passport\Console\ClientCommand::class,
+            \Laravel\Passport\Console\KeysCommand::class,
+        ]);
+        
+        \Laravel\Passport\Passport::tokensExpireIn(\Carbon\Carbon::now()->addMinutes(10));
+        \Laravel\Passport\Passport::refreshTokensExpireIn(\Carbon\Carbon::now()->addDays(1));
 
         //
     }

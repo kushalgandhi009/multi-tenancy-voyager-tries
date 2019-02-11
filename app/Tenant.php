@@ -62,8 +62,9 @@ class Tenant
         // make hostname current
         app(Environment::class)->tenant($hostname->website);
 
-        // \Artisan::call('voyager:install');
-        \Artisan::call('voyager:install', ['--with-dummy' => true ]);
+         \Artisan::call('voyager:install');
+         \Artisan::call('passport:install');
+        //\Artisan::call('voyager:install', ['--with-dummy' => true ]);
 
         // Make the registered user the default Admin of the site.
         $admin = static::makeAdmin($name, $email, $password);

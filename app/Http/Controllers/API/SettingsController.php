@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\SettingRequest;
 use App\Http\Controllers\Controller;
 use TCG\Voyager\Facades\Voyager;
 
