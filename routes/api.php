@@ -30,13 +30,17 @@ Route::group([
     'prefix' => 'v1',
 ], function ()  {
     Route::post('login', 'API\UserController@login');
+
+    Route::group(['prefix' =>'dataset','middleware' => 'guests'], function(){
+        Route::post('init', 'API\DatasetController@init')->middleware('auth:api');
+    });
     
     Route::group(['middleware' => 'auth:api'], function(){
         Route::post('details', 'API\UserController@details');
         Route::post('logout', 'API\UserController@logout');
         
         Route::group(['prefix' =>'dataset'], function(){
-            Route::post('init', 'API\DatasetController@init');
+            //Route::post('init', 'API\DatasetController@init');
             Route::get('status/{datasetId}', 'API\DatasetController@status');
         });
     });

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Services\DatasetAPI;
 use Validator;
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class DatasetController extends Controller
 {
@@ -35,12 +37,14 @@ class DatasetController extends Controller
      */
     public function init(Request $request)
     {
+        $user = Auth::user();
         $validator = Validator::make($request->all(), ['filename' => 'required']);
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 401);
         }
+
         try{
-            $responseObj = $this->apiService->datasetInit('guest',request('filename'));
+            $responseObj = $this->apiService->datasetInit($user->id,request('filename'));
             
             if($responseObj->getStatusCode() == '200'){
                 return $responseObj->getBody();

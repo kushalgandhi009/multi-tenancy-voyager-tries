@@ -51,7 +51,6 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'tenancy.enforce' => \App\Http\Middleware\EnforceTenancy::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
@@ -61,6 +60,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'guests' => \App\Http\Middleware\Guests::class,
     ];
 
     /**
@@ -73,6 +73,7 @@ class Kernel extends HttpKernel
     protected $middlewarePriority = [
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \App\Http\Middleware\Guests::class,
         \App\Http\Middleware\Authenticate::class,
         \Illuminate\Session\Middleware\AuthenticateSession::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
