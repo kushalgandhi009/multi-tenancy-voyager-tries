@@ -11,8 +11,30 @@
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
+    $env = app(\Hyn\Tenancy\Environment::class);
+    $fqdn = optional($env->hostname())->fqdn;
+
+    $systemSite = \App\Tenant::getRootFqdn();
+
+    if ( $fqdn === $systemSite ) {
+        return redirect('/admin');
+    }
+
+    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') { 
+        //
+        $protocol = 'https://';
+    } else {
+        $protocol = 'http://';
+    }
+
+    $fqdn = $protocol . preg_replace('/(.*)(\.' . $systemSite . '$)/', '$1', $fqdn);
+
+    return redirect($fqdn);
 });
 
 Route::group(['prefix' => 'admin'], function () {
