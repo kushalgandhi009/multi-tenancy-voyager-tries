@@ -16,3 +16,28 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::group([
+     'as'     => 'settings.',
+     'prefix' => 'settings',
+ ], function ()  {
+     Route::get('/', ['uses' => 'API\SettingsController@index','as' => 'index']);
+ });
+
+
+Route::group([
+    'prefix' => 'v1',
+], function ()  {
+    Route::post('login', 'API\UserController@login');
+    
+    Route::group(['middleware' => 'auth:api'], function(){
+        Route::post('details', 'API\UserController@details');
+        Route::post('logout', 'API\UserController@logout');
+        
+        Route::group(['prefix' =>'dataset'], function(){
+            Route::post('init', 'API\DatasetController@init');
+            Route::get('status/{datasetId}', 'API\DatasetController@status');
+        });
+    });
+});
