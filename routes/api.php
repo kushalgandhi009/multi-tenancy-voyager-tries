@@ -13,22 +13,21 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-
-Route::group([
-     'as'     => 'settings.',
-     'prefix' => 'settings',
- ], function ()  {
-     Route::get('/', ['uses' => 'API\SettingsController@index','as' => 'index']);
- });
-
-
 Route::group([
     'prefix' => 'v1',
 ], function ()  {
+
+    Route::middleware('auth:api')->get('/user', function (Request $request) {
+        return $request->user();
+    });
+    
+    Route::group([
+        'as'     => 'settings.',
+        'prefix' => 'settings',
+    ], function ()  {
+        Route::get('/', ['uses' => 'API\SettingsController@index','as' => 'index']);
+    });
+   
     Route::post('login', 'API\UserController@login');
     
     Route::group(['middleware' => 'auth:api'], function(){
