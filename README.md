@@ -441,7 +441,7 @@ class AppServiceProvider extends ServiceProvider
         $env = app(Environment::class);
 
         if ($fqdn = optional($env->hostname())->fqdn) {
-            if (env('TENANCY_MAIN_SITE') !== $fqdn ) {
+            if (\App\Tenant::getRootFqdn() !== $fqdn ) {
                 config(['database.default' => 'tenant']);
                 config(['voyager.storage.disk' => 'tenant']);
             }
@@ -546,9 +546,9 @@ class VoyagerTenantsController extends \TCG\Voyager\Http\Controllers\VoyagerBase
 
         $env = app(Environment::class);
         $fqdn = optional($env->hostname())->fqdn;
-        $mainSite = env('TENANCY_MAIN_SITE');
+        $systemSite = \App\Tenant::getRootFqdn();
 
-        if (env('TENANCY_MAIN_SITE') !== $fqdn || 'hostnames' !== $slug) {
+        if (\App\Tenant::getRootFqdn() !== $fqdn || 'hostnames' !== $slug) {
             return false;
         }
 

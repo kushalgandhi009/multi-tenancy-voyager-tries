@@ -23,6 +23,11 @@ class Tenant
         $this->admin = $admin;
     }
 
+    public static function getRootFqdn()
+    {
+        return Hostname::where('website_id', null)->first()->fqdn;
+    }
+
     public static function delete($name)
     {
         // $baseUrl = env('APP_URL_BASE');
@@ -31,6 +36,15 @@ class Tenant
             app(HostnameRepository::class)->delete($tenant, true);
             app(WebsiteRepository::class)->delete($tenant->website, true);
             return "Tenant {$name} successfully deleted.";
+        }
+    }
+
+    public static function deleteById($id)
+    {
+        if ($tenant = Hostname::where('id', $id)->firstOrFail()) {
+            app(HostnameRepository::class)->delete($tenant, true);
+            app(WebsiteRepository::class)->delete($tenant->website, true);
+            return "Tenant with id {$id} successfully deleted.";
         }
     }
 
