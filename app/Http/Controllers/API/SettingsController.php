@@ -29,7 +29,7 @@ class SettingsController extends Controller
         $env = app(Environment::class);
         $fqdn = optional($env->hostname())->fqdn;
 
-        return collect($data)->mapWithKeys(function ($item) use ($fqdn, $protocol) {
+        $collection = collect($data)->mapWithKeys(function ($item) use ($fqdn, $protocol) {
             // return [$item['key'] => $item['value']];
             switch ($item['type']) {
                 case 'image':
@@ -52,8 +52,28 @@ class SettingsController extends Controller
                 default:
                     $return_value = $item['value'];
             }
+
             return [$item['key'] => $return_value];
         });
-    }
 
+        $return = [];
+
+        $assignArrayByPath = function(&$arr, $path, $value, $separator='.') {
+            $keys = explode($separator, $path);
+        
+            foreach ($keys as $key) {
+                $arr = &$arr[$key];
+            }
+        
+            $arr = $value;
+        };
+
+        
+        foreach ($collection as $path => $value) {
+            $assignArrayByPath($return, $path, $value);
+            // dd($key, $items);
+        }
+
+        return $return;
+    }
 }
