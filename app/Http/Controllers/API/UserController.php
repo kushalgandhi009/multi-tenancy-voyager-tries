@@ -1,10 +1,12 @@
 <?php
 namespace App\Http\Controllers\API;
-use Illuminate\Http\Request; 
-use App\Http\Controllers\Controller; 
 use App\User; 
-use Illuminate\Support\Facades\Auth; 
 use Validator;
+use Illuminate\Http\Request; 
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller; 
+use Illuminate\Support\Facades\Auth; 
+
 class UserController extends Controller 
 {
 public $successStatus = 200;
@@ -17,7 +19,7 @@ public $successStatus = 200;
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
             $user = Auth::user(); 
             $success['token'] =  $user->createToken('MyApp')-> accessToken; 
-            return response()->json(['success' => $success], $this-> successStatus); 
+            return response()->json(['success' => $success], $this->successStatus); 
         } 
         else{ 
             return response()->json(['error'=>'Unauthorised'], 401); 
@@ -45,7 +47,7 @@ public $successStatus = 200;
         $user = User::create($input); 
         $success['token'] =  $user->createToken('MyApp')-> accessToken; 
         $success['name'] =  $user->name;
-        return response()->json(['success'=>$success], $this-> successStatus); 
+        return response()->json(['success'=>$success], $this->successStatus); 
     }
 
     /** 
@@ -56,6 +58,18 @@ public $successStatus = 200;
     public function details() 
     { 
         $user = Auth::user(); 
-        return response()->json(['success' => $user], $this-> successStatus); 
+        return response()->json(['success' => $user], $this->successStatus); 
     } 
+
+    public function logout() {
+        $accessToken = Auth::user()->token();
+        DB::table('oauth_refresh_tokens')
+            ->where('access_token_id', $accessToken->id)
+            ->update([
+                'revoked' => true
+            ]);
+
+        $accessToken->revoke();
+        return response()->json(['message' => 'bye-bye'], 204);
+    }
 }
