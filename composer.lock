@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e1eda7f906afbb5386130383828d0afa",
+    "content-hash": "511e7d65efd146dba6f5c8a48d5cddee",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -5189,6 +5189,57 @@
                 "fixtures"
             ],
             "time": "2018-07-12T10:23:15+00:00"
+        },
+        {
+            "name": "gruz/voyager-bread-generator",
+            "version": "1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gruz/voyager-bread-generator.git",
+                "reference": "686c3a6d6dbc35d223249548ca1a9f59f11fa1f2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gruz/voyager-bread-generator/zipball/686c3a6d6dbc35d223249548ca1a9f59f11fa1f2",
+                "reference": "686c3a6d6dbc35d223249548ca1a9f59f11fa1f2",
+                "shasum": ""
+            },
+            "require": {
+                "tcg/voyager": "^1.0"
+            },
+            "require-dev": {
+                "laravel/laravel": "^5.5"
+            },
+            "type": "library",
+            "extra": {
+                "hook": {
+                    "providers": [
+                        "VoyagerBread\\BreadGeneratorServiceProvider"
+                    ]
+                },
+                "laravel": {
+                    "providers": [
+                        "VoyagerBread\\BreadGeneratorServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "VoyagerBread\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeff Ochoa",
+                    "email": "jeffer.8a@gmail.com"
+                }
+            ],
+            "description": "Create BREAD from the console using artisan",
+            "time": "2018-06-26T06:26:23+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
