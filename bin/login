@@ -1,0 +1,5 @@
+#!/bin/bash
+# Logins to the running container.
+# Usage: bin/login
+cd laradock;
+docker-compose exec --user=laradock workspace bash

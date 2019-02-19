@@ -1,0 +1,6 @@
+#!/bin/bash
+# Logins to the running container.
+# Usage: bin/start
+cd laradock;
+docker-compose down
+cd ..;
