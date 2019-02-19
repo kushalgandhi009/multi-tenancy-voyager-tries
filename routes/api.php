@@ -37,6 +37,7 @@ Route::group([
         Route::group(['prefix' =>'dataset'], function(){
             Route::post('init', 'API\DatasetController@init');
             Route::get('status/{datasetId}', 'API\DatasetController@status');
+            Route::post('addNotificationEmail', 'API\DatasetController@addNotificationEmail');
         });
     });
 });
