@@ -1,12 +1,15 @@
 # Install
 
 ```bash
-git clone git@github.com:gruz/multi-tenancy-voyager-tries.git multi-tenancy-voyager;
+git clone git@github.com:gruz/multi-tenancy-voyager-tries.git 
+cd multi-tenancy-voyager;
+git submodule update --init --recursive;
 git fetch
 git checkout wyzoo
 git pull
 bin/start
 bin/login
+
 ```
 
 Now we are inside the docker environment.
@@ -25,4 +28,5 @@ php artisan db:seed --class=PermissionRoleTableSeeder
 
 
 php artisan config:clear
+
 ```
