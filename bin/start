@@ -1,6 +1,8 @@
 #!/bin/bash
 # Logins to the running container.
 # Usage: bin/start
-cd laradock;
+cd laradock
+cp env-example .env
+sed -i "s/PHP_FPM_INSTALL_EXIF=false/PHP_FPM_INSTALL_EXIF=true/g" .env
 docker-compose up -d postgres nginx adminer
 cd ..;
