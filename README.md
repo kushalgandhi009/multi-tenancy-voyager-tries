@@ -1,7 +1,7 @@
 # Install
 
 ```bash
-git clone git@github.com:gruz/multi-tenancy-voyager-tries.git 
+git clone git@github.com:gruz/multi-tenancy-voyager-tries.git multi-tenancy-voyager
 cd multi-tenancy-voyager;
 git submodule update --init --recursive;
 git fetch
