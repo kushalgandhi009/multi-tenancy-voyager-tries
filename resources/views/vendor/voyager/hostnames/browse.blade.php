@@ -96,6 +96,12 @@
                                         @endcan
                                         @foreach($dataType->browseRows as $row)
 
+                                            @if($row->field == 'website_id' && empty($data->website_id))
+                                                <?php
+                                                $data->website_id = 'System domain';
+                                                ?>
+                                            @endif
+
                                             <td>
                                                 @if($row->type == 'image')
                                                     <img src="@if( !filter_var($data->{$row->field}, FILTER_VALIDATE_URL)){{ Voyager::image( $data->{$row->field} ) }}@else{{ $data->{$row->field} }}@endif" style="width:100px">
