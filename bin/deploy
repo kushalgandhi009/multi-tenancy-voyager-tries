@@ -1,0 +1,16 @@
+#!/bin/bash
+# Logins to the running container.
+# Usage: bin/start
+
+git reset --hard origin/wyzoo
+git pull
+
+sed -i "s/APP_URL=http:\/\/voyager.test/APP_URL=http:\/\/wyzoo.ml/g" .env
+
+bin/login
+
+composer install;
+
+php artisan migrate
+php artisan tenancy:run migrate
+exit;
