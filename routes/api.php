@@ -17,9 +17,9 @@ Route::group([
     'prefix' => 'v1',
 ], function ()  {
 
-    Route::middleware('auth:api')->get('/user', function (Request $request) {
-        return $request->user();
-    });
+    // Route::middleware('auth:api')->get('/user', function (Request $request) {
+    //     return $request->user();
+    // });
     
     Route::group([
         'as'     => 'settings.',
@@ -27,11 +27,14 @@ Route::group([
     ], function ()  {
         Route::get('/', ['uses' => 'API\SettingsController@index','as' => 'index']);
     });
-   
-    Route::post('login', 'API\UserController@login');
+
+    Route::group(['middleware' => 'guest'], function(){
+        Route::post('login', 'API\UserController@login');
+        Route::post('signup', 'API\UserController@register');
+    });
     
     Route::group(['middleware' => 'auth:api'], function(){
-        Route::post('details', 'API\UserController@details');
+        Route::get('user', 'API\UserController@details');
         Route::post('logout', 'API\UserController@logout');
         
         Route::group(['prefix' =>'dataset'], function(){
